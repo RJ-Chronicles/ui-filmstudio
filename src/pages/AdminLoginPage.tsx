@@ -1,15 +1,14 @@
 import { User, ApplicationProps } from "../store/type";
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import CustomizedSnackbar from "../components/Snackbar";
 
-const AdminLogin: React.FC<ApplicationProps> = ({
-  setLoggedInUser,
-  loggedInUser,
-  setLoadingSpinner,
-}) => {
+import { logInWithEmailAndPassword } from "../firebase";
+import AppContext from "../store/AppContext";
+
+const AdminLogin = () => {
+  const { state, dispatch } = useContext(AppContext);
+  const { user } = state;
   const navigate = useNavigate();
-  const [snackBar, toggleSnackBar] = useState(false);
   const [userResponse, setUserResponse] = useState<{
     username: string;
     password: string;
@@ -17,7 +16,7 @@ const AdminLogin: React.FC<ApplicationProps> = ({
   const handleUserResponse = (e: React.ChangeEvent<HTMLInputElement>) => {
     setUserResponse((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
-  const handleLoginSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleLoginSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const savedUser: User = {
       username: userResponse.username,
@@ -25,14 +24,45 @@ const AdminLogin: React.FC<ApplicationProps> = ({
       token: "",
       isLoggedIn: true,
     };
-    setLoggedInUser(savedUser);
-    toggleSnackBar(true);
-    setLoadingSpinner(true);
+    dispatch({ type: "OWNER_LOGIN", payload: savedUser });
+
+    dispatch({
+      type: "TOGGLE_SNACKBAR",
+      payload: {
+        isOpen: true,
+        message: "Login successful",
+        severity: "success",
+      },
+    });
+    dispatch({ type: "SET_LOADING", payload: true });
+    const response = await logInWithEmailAndPassword(
+      userResponse.username,
+      userResponse.password
+    );
+    localStorage.setItem("authUser", JSON.stringify(response));
+    console.log(response);
     setTimeout(() => {
-      setLoadingSpinner(false);
+      dispatch({ type: "SET_LOADING", payload: false });
       navigate("/admin-dashboard");
     }, 5000);
   };
+
+  useEffect(() => {
+    const localStorageUser = localStorage.getItem("authUser");
+    if (localStorageUser) {
+      if (!user.isLoggedIn) {
+        console.log(JSON.stringify(user));
+        const savedUser: User = {
+          username: "",
+          password: "",
+          token: "",
+          isLoggedIn: true,
+        };
+        dispatch({ type: "OWNER_LOGIN", payload: savedUser });
+        navigate("/admin-dashboard");
+      }
+    }
+  }, []);
   return (
     <>
       <div className="min-h-screen bg-gray-100 py-6 flex flex-col justify-center sm:py-12">
@@ -95,13 +125,6 @@ const AdminLogin: React.FC<ApplicationProps> = ({
           </div>
         </div>
       </div>
-
-      <CustomizedSnackbar
-        snackbarClose={toggleSnackBar}
-        open={snackBar}
-        message={"user Logined successfully"}
-        severty={"success"}
-      />
     </>
   );
 };

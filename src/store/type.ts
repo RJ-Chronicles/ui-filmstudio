@@ -1,8 +1,8 @@
 export interface User {
-  username: string;
-  password: string;
-  token: string;
+  username: string | null;
+  password: string | null;
   isLoggedIn: boolean;
+  token: string | null;
 }
 
 export interface AdminLoginProps {
@@ -16,3 +16,16 @@ export interface ApplicationProps extends AdminLoginProps {
 export type OperationType = "NEW_INSTA_POST" | "NEW_IMAGE_POST";
 
 export type Severity = "success" | "error" | "warning" | "info";
+
+export interface State {
+  user: User;
+  isLoading: boolean;
+  snackbar: { isOpen: boolean; message: string; severity: Severity };
+}
+
+export const initialUser: User = {
+  username: null,
+  password: null,
+  isLoggedIn: false,
+  token: null,
+};

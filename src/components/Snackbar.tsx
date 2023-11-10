@@ -3,6 +3,8 @@ import Snackbar from "@mui/material/Snackbar";
 import MuiAlert, { AlertProps } from "@mui/material/Alert";
 
 import { Severity } from "../store/type";
+import AppContext from "../store/AppContext";
+
 const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
   props,
   ref
@@ -10,31 +12,38 @@ const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
 
-const CustomizedSnackbar: React.FC<{
-  open: boolean;
-  snackbarClose: (open: boolean) => void;
-  message: string;
-  severty?: Severity;
-}> = ({ open, message, severty = "success", snackbarClose }) => {
-  React.useEffect(() => {});
+const CustomizedSnackbar: React.FC<{ children: React.ReactNode }> = ({
+  children,
+}) => {
+  const { state, dispatch } = React.useContext(AppContext);
+  const { message, severity, isOpen } = state.snackbar;
+
   const handleClose = () => {
     console.log("closing snackbar");
-    snackbarClose(false);
+    dispatch({
+      type: "TOGGLE_SNACKBAR",
+      payload: {
+        isOpen: false,
+        message: "Login successful",
+        severity: "success",
+      },
+    });
   };
 
   return (
     <>
-      {open && (
-        <Snackbar autoHideDuration={5000} open={open} onClose={handleClose}>
+      {isOpen && (
+        <Snackbar autoHideDuration={5000} open={isOpen} onClose={handleClose}>
           <Alert
             onClose={handleClose}
-            severity={severty}
+            severity={severity}
             sx={{ width: "100%" }}
           >
             {message}
           </Alert>
         </Snackbar>
       )}
+      {children}
     </>
   );
 };

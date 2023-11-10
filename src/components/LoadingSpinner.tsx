@@ -4,7 +4,7 @@ import Backdrop from "./Backdrop";
 
 interface IconSpinnerProps {
   color?: string;
-  open: boolean;
+  open?: boolean;
   children: React.ReactNode;
 }
 
