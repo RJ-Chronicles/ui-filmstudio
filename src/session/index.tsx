@@ -1,19 +1,9 @@
-import React, {
-  createContext,
-  useContext,
-  useState,
-  useEffect,
-  ReactNode,
-} from "react";
+import React, { createContext, useContext, useState, useEffect } from "react";
 
 interface User {
   username: string;
   token: string;
   tokenExpiry: number;
-}
-
-interface SessionContextProps {
-  children: ReactNode;
 }
 
 interface SessionContextValue {
@@ -34,7 +24,7 @@ export const useSession = () => {
   return context;
 };
 
-export const SessionProvider: React.FC<SessionContextProps> = ({
+export const SessionProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   const [user, setUser] = useState<User | null>(null);
@@ -44,8 +34,6 @@ export const SessionProvider: React.FC<SessionContextProps> = ({
     const storedUser = localStorage.getItem("user");
     if (storedUser) {
       const parsedUser: User = JSON.parse(storedUser);
-
-      // Check if the token is still valid
       if (parsedUser.tokenExpiry > Date.now()) {
         setUser(parsedUser);
       } else {

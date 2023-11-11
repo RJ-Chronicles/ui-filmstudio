@@ -18,6 +18,7 @@ const AppReducer = (state: State, action: Action) => {
       };
 
     case "SET_LOADING":
+      console.log("isLoading", action.payload);
       return {
         ...state,
         isLoading: action.payload,

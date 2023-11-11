@@ -1,18 +1,21 @@
-import { User, ApplicationProps } from "../store/type";
+import { User } from "../store/type";
 import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-
-import { logInWithEmailAndPassword } from "../firebase";
 import AppContext from "../store/AppContext";
+import { useSession } from "../session";
 
 const AdminLogin = () => {
   const { state, dispatch } = useContext(AppContext);
-  const { user } = state;
   const navigate = useNavigate();
+  const { login } = useSession();
+  const { user } = useSession();
+  const { isLoggedIn } = state.user;
+
   const [userResponse, setUserResponse] = useState<{
     username: string;
     password: string;
   }>({ username: "", password: "" });
+
   const handleUserResponse = (e: React.ChangeEvent<HTMLInputElement>) => {
     setUserResponse((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
@@ -35,12 +38,7 @@ const AdminLogin = () => {
       },
     });
     dispatch({ type: "SET_LOADING", payload: true });
-    const response = await logInWithEmailAndPassword(
-      userResponse.username,
-      userResponse.password
-    );
-    localStorage.setItem("authUser", JSON.stringify(response));
-    console.log(response);
+    login(userResponse.username, "ljdlfkasj", 1700058729000);
     setTimeout(() => {
       dispatch({ type: "SET_LOADING", payload: false });
       navigate("/admin-dashboard");
@@ -48,21 +46,32 @@ const AdminLogin = () => {
   };
 
   useEffect(() => {
-    const localStorageUser = localStorage.getItem("authUser");
-    if (localStorageUser) {
-      if (!user.isLoggedIn) {
-        console.log(JSON.stringify(user));
-        const savedUser: User = {
-          username: "",
-          password: "",
-          token: "",
-          isLoggedIn: true,
-        };
-        dispatch({ type: "OWNER_LOGIN", payload: savedUser });
+    if (user && !isLoggedIn) {
+      console.log("login  " + isLoggedIn);
+      const savedUser: User = {
+        username: user.username,
+        password: "password",
+        token: user.token,
+        isLoggedIn: true,
+      };
+      dispatch({ type: "OWNER_LOGIN", payload: savedUser });
+
+      dispatch({
+        type: "TOGGLE_SNACKBAR",
+        payload: {
+          isOpen: true,
+          message: "You have been logged in with active session",
+          severity: "success",
+        },
+      });
+      dispatch({ type: "SET_LOADING", payload: true });
+      setTimeout(() => {
         navigate("/admin-dashboard");
-      }
+        dispatch({ type: "SET_LOADING", payload: false });
+      });
     }
-  }, []);
+  }, [user]);
+
   return (
     <>
       <div className="min-h-screen bg-gray-100 py-6 flex flex-col justify-center sm:py-12">

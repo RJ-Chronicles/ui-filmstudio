@@ -1,22 +1,24 @@
-import { useState } from "react";
-import AdminLogin from "./pages/AdminLoginPage";
-import { User, OperationType } from "./store/type";
 import AppRout from "./components/AppRout";
 import LoadingSpinner from "./components/LoadingSpinner";
 import CustomizedSnackbar from "./components/Snackbar";
-import { AppProvider } from "./store/AppContext";
+import AppContext, { AppProvider } from "./store/AppContext";
 import { SessionProvider } from "./session";
+import { useContext } from "react";
+
 const App = () => {
+  const { state } = useContext(AppContext);
+  const { isLoading } = state;
+  console.log("isLoading", isLoading);
   return (
-    <SessionProvider>
-      <AppProvider>
+    <AppProvider>
+      <SessionProvider>
         <CustomizedSnackbar>
-          <LoadingSpinner open={false}>
+          <LoadingSpinner>
             <AppRout />
           </LoadingSpinner>
         </CustomizedSnackbar>
-      </AppProvider>
-    </SessionProvider>
+      </SessionProvider>
+    </AppProvider>
   );
 };
 
