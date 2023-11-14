@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import AppContext from "../store/AppContext";
 import { useSession } from "../session";
 
-import loginBGImage from "../assets/img/login.jpg";
+import loginBGImage from "../assets/img/login1.jpg";
 
 const AdminLogin = () => {
   const { state, dispatch } = useContext(AppContext);
@@ -85,8 +85,8 @@ const AdminLogin = () => {
           <div className="relative px-4 py-10 bg-white shadow-lg sm:rounded-3xl sm:p-20">
             <div className="max-w-md mx-auto">
               <div>
-                <h1 className="text-2xl font-semibold">
-                  Product Owner Login Here Once
+                <h1 className="text-2xl font-semibold text-center">
+                  Owner Login
                 </h1>
               </div>
               <form

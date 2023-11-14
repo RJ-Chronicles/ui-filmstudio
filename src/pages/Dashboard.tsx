@@ -48,12 +48,20 @@ const Dashboard = () => {
         <div className="flex justify-items-start space-x-6 w-full text-sm font-semibold font-sans">
           <button
             type="button"
-            className="text-sm font-semibold font-sans"
+            className={`${
+              showImage ? "border-b-2 border-white" : "border-none"
+            }`}
             onClick={handleShowImage}
           >
             IMAGE
           </button>
-          <button type="button" className="" onClick={handleShowPost}>
+          <button
+            type="button"
+            className={`${
+              showPost ? "border-b-2 border-white" : "border-none"
+            }`}
+            onClick={handleShowPost}
+          >
             POST
           </button>
         </div>
