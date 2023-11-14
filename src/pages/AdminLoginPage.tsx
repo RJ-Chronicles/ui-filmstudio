@@ -76,7 +76,7 @@ const AdminLogin = () => {
   return (
     <>
       <div
-        className="min-h-screen bg-gray-100 py-6 flex flex-col justify-center sm:py-12"
+        className="min-h-screen bg-gray-100 py-6 flex flex-col justify-center sm:py-12 font-helvetica-neue"
         style={{ backgroundImage: `url(${loginBGImage})` }}
       >
         <div className="absolute bg-black opacity-60 inset-0 z-0"></div>
@@ -90,7 +90,7 @@ const AdminLogin = () => {
                 </h1>
               </div>
               <form
-                className="divide-y divide-gray-200"
+                className="divide-y divide-gray-200 min-w-[320px] md:min-w-[400px]"
                 onSubmit={handleLoginSubmit}
               >
                 <div className="py-8 text-base leading-6 space-y-4 text-gray-700 sm:text-lg sm:leading-7">
@@ -103,6 +103,7 @@ const AdminLogin = () => {
                       className="peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:borer-rose-600"
                       placeholder="Email address"
                       onChange={handleUserResponse}
+                      required={true}
                     />
                     <label
                       htmlFor="username"
@@ -120,6 +121,7 @@ const AdminLogin = () => {
                       className="peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:borer-rose-600"
                       placeholder="Password"
                       onChange={handleUserResponse}
+                      required={true}
                     />
                     <label
                       htmlFor="password"
