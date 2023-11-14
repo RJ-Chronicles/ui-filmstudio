@@ -1,9 +1,11 @@
 import { useContext, useEffect, useState } from "react";
-import { Route, Routes, useNavigate } from "react-router-dom";
+import { Navigate, Route, Routes, useNavigate } from "react-router-dom";
 import AdminLogin from "../pages/AdminLoginPage";
 import Dashboard from "../pages/Dashboard";
 import Landingpage from "../pages/LandingPage";
+
 import AppContext from "../store/AppContext";
+
 const AppRout = () => {
   const { state } = useContext(AppContext);
   const { isLoggedIn } = state.user;
