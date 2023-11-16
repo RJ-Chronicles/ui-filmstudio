@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import FileUpload from "../components/FileUpload";
 import InstaPostUpload from "../components/InstaPostUpload";
 import useScrollGBListener from "../hooks/useScrollBGListener";
+import bg_dashboard_image from "../assets/img/bg-dashboard1.jpg";
+import bg_form_image from "../assets/img/bg-form.jpg";
 
 import { useSession } from "../session";
 const Dashboard = () => {
@@ -30,10 +32,9 @@ const Dashboard = () => {
 
   return (
     <div
-      className={`relative min-h-screen flex flex-col justify-center bg-gray-50 pb-12  bg-no-`}
+      className={`relative min-h-screen flex flex-col justify-center bg-gray-50 pb-12  bg-cover bg-no-reapet`}
       style={{
-        backgroundImage:
-          "url(https://images.unsplash.com/photo-1621243804936-775306a8f2e3?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80)",
+        backgroundImage: `url(${bg_dashboard_image})`,
       }}
     >
       <div className="absolute bg-black opacity-60 inset-0 z-0"></div>
@@ -76,7 +77,7 @@ const Dashboard = () => {
           <div
             className="lg:flex w-1/2 hidden bg-gray-500 bg-no-repeat bg-cover relative items-center rounded-sm shadow-sm"
             style={{
-              backgroundImage: `url(https://images.unsplash.com/photo-1577495508048-b635879837f1?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=675&q=80)`,
+              backgroundImage: `url(${bg_form_image})`,
             }}
           >
             <div className="absolute bg-black opacity-60 inset-0 z-0"></div>

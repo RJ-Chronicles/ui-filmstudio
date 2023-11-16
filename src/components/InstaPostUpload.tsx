@@ -10,7 +10,7 @@ const InstaPostUpload = () => {
             type="url"
             id="post"
             placeholder="Enter your insta post url"
-            className="p-2 px-4 text-center text-white bg-zinc-800 border border-zinc-600 placeholder:text-sm placeholder:text-center md:text-left placeholder:md:text-left focus:outline-none"
+            className="p-2 px-4 text-center text-white bg-zinc-800 border border-zinc-600 placeholder:text-sm  md:text-left placeholder:text-left focus:outline-none"
           />
         </div>
 
@@ -22,7 +22,7 @@ const InstaPostUpload = () => {
             id="description"
             rows={4}
             placeholder="Enter your insta post description"
-            className="p-2 px-4 text-center text-white bg-zinc-800 border border-zinc-600 placeholder:text-sm placeholder:text-center md:text-left placeholder:md:text-left focus:outline-none"
+            className="p-2 px-4 text-center text-white bg-zinc-800 border border-zinc-600 placeholder:text-sm  md:text-left placeholder:text-left focus:outline-none"
           ></textarea>
         </div>
 

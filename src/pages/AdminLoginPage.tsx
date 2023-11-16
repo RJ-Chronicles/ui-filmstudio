@@ -40,7 +40,7 @@ const AdminLogin = () => {
       },
     });
     dispatch({ type: "SET_LOADING", payload: true });
-    login(userResponse.username, "ljdlfkasj", 1700058729000);
+    login(userResponse.username, "ljdlfkasj", 1700406296000);
     setTimeout(() => {
       dispatch({ type: "SET_LOADING", payload: false });
       navigate("/admin-dashboard");
@@ -48,16 +48,7 @@ const AdminLogin = () => {
   };
 
   useEffect(() => {
-    if (user && !isLoggedIn) {
-      console.log("login  " + isLoggedIn);
-      const savedUser: User = {
-        username: user.username,
-        password: "password",
-        token: user.token,
-        isLoggedIn: true,
-      };
-      dispatch({ type: "OWNER_LOGIN", payload: savedUser });
-
+    if (user && isLoggedIn) {
       dispatch({
         type: "TOGGLE_SNACKBAR",
         payload: {
@@ -72,11 +63,11 @@ const AdminLogin = () => {
         dispatch({ type: "SET_LOADING", payload: false });
       });
     }
-  }, [user]);
+  }, []);
   return (
     <>
       <div
-        className="min-h-screen bg-gray-100 py-6 flex flex-col justify-center sm:py-12 font-helvetica-neue"
+        className="min-h-screen bg-gray-100 py-6 flex flex-col justify-center sm:py-12 font-helvetica-neue bg-no-repeat bg-cover"
         style={{ backgroundImage: `url(${loginBGImage})` }}
       >
         <div className="absolute bg-black opacity-60 inset-0 z-0"></div>
