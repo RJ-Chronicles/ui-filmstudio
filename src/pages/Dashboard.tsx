@@ -6,6 +6,10 @@ import useScrollGBListener from "../hooks/useScrollBGListener";
 import bg_dashboard_image from "../assets/img/bg-dashboard1.jpg";
 import bg_form_image from "../assets/img/bg-form.jpg";
 
+const QUOTES = [
+  "The one thing I need to leave behind is good memories.",
+  "Capture your personal memory in unique way, anywhere.",
+];
 import { useSession } from "../session";
 const Dashboard = () => {
   const { logout } = useSession();
@@ -86,7 +90,7 @@ const Dashboard = () => {
                 Keep it special
               </h1>
               <p className="text-3xl my-4">
-                Capture your personal memory in unique way, anywhere.
+                {showImage ? QUOTES[0] : QUOTES[1]}
               </p>
             </div>
           </div>
