@@ -5,20 +5,20 @@ export interface User {
   token: string | null;
 }
 
-export interface AdminLoginProps {
-  setLoggedInUser: (user: User) => void;
-  loggedInUser: User | undefined;
-}
+// export interface AdminLoginProps {
+//   setLoggedInUser: (user: User) => void;
+//   loggedInUser: User | undefined;
+// }
 
-export interface ApplicationProps extends AdminLoginProps {
-  setLoadingSpinner: (open: boolean) => void;
-}
+// export interface ApplicationProps extends AdminLoginProps {
+//   setLoadingSpinner: (open: boolean) => void;
+// }
 export type OperationType = "NEW_INSTA_POST" | "NEW_IMAGE_POST";
 
 export type Severity = "success" | "error" | "warning" | "info";
 
 export interface State {
-  user: User;
+  // user: User;
   isLoading: boolean;
   snackbar: { isOpen: boolean; message: string; severity: Severity };
 }

@@ -1,7 +1,7 @@
 import { OperationType, User, State, Severity } from "./type";
 
 export type Action =
-  | { type: "OWNER_LOGIN"; payload: User }
+  // | { type: "OWNER_LOGIN"; payload: User }
   | { type: "SET_LOADING"; payload: boolean }
   | {
       type: "TOGGLE_SNACKBAR";
@@ -11,14 +11,13 @@ export type Dispatch = (action: Action) => void;
 
 const AppReducer = (state: State, action: Action) => {
   switch (action.type) {
-    case "OWNER_LOGIN":
-      return {
-        ...state,
-        user: action.payload,
-      };
+    // case "OWNER_LOGIN":
+    //   return {
+    //     ...state,
+    //     user: action.payload,
+    //   };
 
     case "SET_LOADING":
-      console.log("isLoading", action.payload);
       return {
         ...state,
         isLoading: action.payload,

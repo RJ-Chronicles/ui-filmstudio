@@ -14,10 +14,10 @@ import { useSession } from "../session";
 const Dashboard = () => {
   const { logout } = useSession();
   const { scrollTop } = useScrollGBListener();
-  console.log(scrollTop + " scroll");
   const navigate = useNavigate();
-  const [showImage, setShowImage] = useState(false);
-  const [showPost, setShowPost] = useState(true);
+
+  const [showImage, setShowImage] = useState(true);
+  const [showPost, setShowPost] = useState(false);
 
   const handleShowImage = () => {
     setShowImage((prev) => !prev);

@@ -11,7 +11,6 @@ const AdminLogin = () => {
   const navigate = useNavigate();
   const { login } = useSession();
   const { user } = useSession();
-  const { isLoggedIn } = state.user;
 
   const [userResponse, setUserResponse] = useState<{
     username: string;
@@ -23,13 +22,6 @@ const AdminLogin = () => {
   };
   const handleLoginSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const savedUser: User = {
-      username: userResponse.username,
-      password: userResponse.password,
-      token: "",
-      isLoggedIn: true,
-    };
-    dispatch({ type: "OWNER_LOGIN", payload: savedUser });
 
     dispatch({
       type: "TOGGLE_SNACKBAR",
@@ -40,7 +32,7 @@ const AdminLogin = () => {
       },
     });
     dispatch({ type: "SET_LOADING", payload: true });
-    login(userResponse.username, "ljdlfkasj", 1700406296000);
+    login(userResponse.username, "ljdlfkasj", 1700406296000, true);
     setTimeout(() => {
       dispatch({ type: "SET_LOADING", payload: false });
       navigate("/admin-dashboard");
@@ -48,7 +40,7 @@ const AdminLogin = () => {
   };
 
   useEffect(() => {
-    if (user && isLoggedIn) {
+    if (user) {
       dispatch({
         type: "TOGGLE_SNACKBAR",
         payload: {

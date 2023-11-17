@@ -4,11 +4,17 @@ interface User {
   username: string;
   token: string;
   tokenExpiry: number;
+  isLoggedIn: boolean;
 }
 
 interface SessionContextValue {
   user: User | null;
-  login: (username: string, token: string, tokenExpiry: number) => void;
+  login: (
+    username: string,
+    token: string,
+    tokenExpiry: number,
+    isLoggedIn: boolean
+  ) => void;
   logout: () => void;
 }
 
@@ -43,9 +49,14 @@ export const SessionProvider: React.FC<{ children: React.ReactNode }> = ({
     }
   }, []);
 
-  const login = (username: string, token: string, tokenExpiry: number) => {
+  const login = (
+    username: string,
+    token: string,
+    tokenExpiry: number,
+    isLoggedIn: boolean
+  ) => {
     // Save user details to local storage
-    const newUser: User = { username, token, tokenExpiry };
+    const newUser: User = { username, token, tokenExpiry, isLoggedIn };
     localStorage.setItem("user", JSON.stringify(newUser));
     setUser(newUser);
   };
