@@ -55,7 +55,7 @@ const AdminLogin = () => {
         dispatch({ type: "SET_LOADING", payload: false });
       });
     }
-  }, []);
+  }, [user]);
   return (
     <>
       <div
